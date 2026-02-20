@@ -1,0 +1,932 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A tribute to Dr. A.P.J. Abdul Kalam - The Missile Man of India, former President, scientist, and inspiration to millions.">
+  <title>Dr. A.P.J. Abdul Kalam - Tribute</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=Source+Sans+3:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              50: '#f0f4f8',
+              100: '#d9e2ec',
+              200: '#bcccdc',
+              300: '#9fb3c8',
+              400: '#829ab1',
+              500: '#627d98',
+              600: '#486581',
+              700: '#334e68',
+              800: '#243b53',
+              900: '#102a43',
+              950: '#0a1929'
+            },
+            gold: {
+              50: '#fffbeb',
+              100: '#fef3c7',
+              200: '#fde68a',
+              300: '#fcd34d',
+              400: '#fbbf24',
+              500: '#d4a012',
+              600: '#b8860b',
+              700: '#92400e',
+              800: '#78350f',
+              900: '#451a03'
+            }
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'Georgia', 'serif'],
+            sans: ['Source Sans 3', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    
+    /* Loading Screen */
+    .loader-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #102a43 0%, #243b53 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    .loader-wrapper.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .loader {
+      width: 60px;
+      height: 60px;
+      border: 3px solid rgba(212, 160, 18, 0.2);
+      border-top-color: #d4a012;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Glassmorphism */
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .glass-light {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+    
+    /* Scroll Reveal Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .reveal-left.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .reveal-right.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    
+    /* Floating Animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+    }
+    .float { animation: float 4s ease-in-out infinite; }
+    .float-delay { animation: float 4s ease-in-out 1s infinite; }
+    .float-delay-2 { animation: float 4s ease-in-out 2s infinite; }
+    
+    /* Particle Background */
+    .particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: rgba(212, 160, 18, 0.3);
+      border-radius: 50%;
+      animation: rise 8s infinite;
+    }
+    @keyframes rise {
+      0% { transform: translateY(100%) scale(0); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-100%) scale(1); opacity: 0; }
+    }
+    
+    /* Timeline */
+    .timeline-line {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, #d4a012 0%, #243b53 100%);
+      transform: translateX(-50%);
+    }
+    @media (max-width: 768px) {
+      .timeline-line { left: 20px; }
+    }
+    
+    /* Card Hover Effects */
+    .card-hover {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card-hover:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 50px -12px rgba(16, 42, 67, 0.25);
+    }
+    
+    /* Quote Cards */
+    .quote-card {
+      transition: all 0.4s ease;
+    }
+    .quote-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 20px 40px rgba(16, 42, 67, 0.2);
+    }
+    
+    /* Gallery Hover */
+    .gallery-item {
+      overflow: hidden;
+    }
+    .gallery-item img {
+      transition: transform 0.6s ease;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+    .gallery-overlay {
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+    
+    /* Button Shine Effect */
+    .btn-shine {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-shine::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s ease;
+    }
+    .btn-shine:hover::before {
+      left: 100%;
+    }
+    
+    /* Nav Scroll State */
+    .nav-scrolled {
+      background: rgba(16, 42, 67, 0.95) !important;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* Mobile Menu */
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+    
+    /* Hero gradient overlay */
+    .hero-gradient {
+      background: linear-gradient(135deg, rgba(16, 42, 67, 0.95) 0%, rgba(36, 59, 83, 0.9) 50%, rgba(16, 42, 67, 0.85) 100%);
+    }
+    
+    /* Section divider */
+    .section-divider {
+      height: 4px;
+      background: linear-gradient(90deg, transparent 0%, #d4a012 50%, transparent 100%);
+      width: 120px;
+      margin: 0 auto;
+      border-radius: 2px;
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full font-sans text-navy-900 bg-white overflow-x-hidden"><!-- Loading Screen -->
+  <div class="loader-wrapper" id="loader">
+   <div class="text-center">
+    <div class="loader mx-auto mb-4"></div>
+    <p class="text-gold-400 font-serif text-lg">Loading Tribute...</p>
+   </div>
+  </div><!-- Navigation -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 md:h-20"><a href="#hero" class="flex items-center space-x-2">
+      <div class="w-10 h-10 rounded-full bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center"><span class="text-white font-serif font-bold text-lg">K</span>
+      </div><span class="text-white font-serif font-semibold text-lg hidden sm:block">APJ Kalam</span> </a> <!-- Desktop Menu -->
+     <div class="hidden md:flex items-center space-x-8"><a href="#about" class="text-white/80 hover:text-gold-400 transition-colors font-medium">About</a> <a href="#timeline" class="text-white/80 hover:text-gold-400 transition-colors font-medium">Timeline</a> <a href="#quotes" class="text-white/80 hover:text-gold-400 transition-colors font-medium">Quotes</a> <a href="#gallery" class="text-white/80 hover:text-gold-400 transition-colors font-medium">Gallery</a> <a href="#cta" class="bg-gold-500 hover:bg-gold-600 text-white px-5 py-2 rounded-full font-medium transition-all btn-shine">Learn More</a>
+     </div><!-- Mobile Menu Button --> <button id="menuBtn" class="md:hidden text-white p-2" aria-label="Toggle menu">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path id="menuIcon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg></button>
+    </div>
+   </div><!-- Mobile Menu -->
+   <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 w-72 h-full bg-navy-900/98 backdrop-blur-lg md:hidden">
+    <div class="p-6"><button id="closeMenu" class="absolute top-4 right-4 text-white p-2" aria-label="Close menu">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg></button>
+     <div class="mt-12 space-y-6"><a href="#about" class="block text-white/80 hover:text-gold-400 text-lg font-medium mobile-link">About</a> <a href="#timeline" class="block text-white/80 hover:text-gold-400 text-lg font-medium mobile-link">Timeline</a> <a href="#quotes" class="block text-white/80 hover:text-gold-400 text-lg font-medium mobile-link">Quotes</a> <a href="#gallery" class="block text-white/80 hover:text-gold-400 text-lg font-medium mobile-link">Gallery</a> <a href="#cta" class="inline-block bg-gold-500 hover:bg-gold-600 text-white px-6 py-3 rounded-full font-medium transition-all mobile-link">Learn More</a>
+     </div>
+    </div>
+   </div>
+  </nav><!-- Hero Section -->
+  <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden"><!-- Background -->
+   <div class="absolute inset-0 bg-gradient-to-br from-navy-950 via-navy-900 to-navy-800"></div>
+   <div class="hero-gradient absolute inset-0"></div><!-- Particles -->
+   <div class="particles">
+    <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="particle" style="left: 20%; animation-delay: 1s;"></div>
+    <div class="particle" style="left: 30%; animation-delay: 2s;"></div>
+    <div class="particle" style="left: 40%; animation-delay: 0.5s;"></div>
+    <div class="particle" style="left: 50%; animation-delay: 1.5s;"></div>
+    <div class="particle" style="left: 60%; animation-delay: 2.5s;"></div>
+    <div class="particle" style="left: 70%; animation-delay: 0.8s;"></div>
+    <div class="particle" style="left: 80%; animation-delay: 1.8s;"></div>
+    <div class="particle" style="left: 90%; animation-delay: 2.8s;"></div>
+   </div><!-- Floating Elements -->
+   <div class="absolute top-20 left-10 w-20 h-20 opacity-20 float">
+    <svg viewbox="0 0 100 100" class="text-gold-400 fill-current"><polygon points="50,5 61,40 98,40 68,62 79,97 50,75 21,97 32,62 2,40 39,40" />
+    </svg>
+   </div>
+   <div class="absolute bottom-32 right-16 w-16 h-16 opacity-15 float-delay">
+    <svg viewbox="0 0 100 100" class="text-gold-400 fill-current"><polygon points="50,5 61,40 98,40 68,62 79,97 50,75 21,97 32,62 2,40 39,40" />
+    </svg>
+   </div>
+   <div class="absolute top-1/3 right-10 w-12 h-12 opacity-10 float-delay-2">
+    <svg viewbox="0 0 100 100" class="text-gold-400 fill-current"><polygon points="50,5 61,40 98,40 68,62 79,97 50,75 21,97 32,62 2,40 39,40" />
+    </svg>
+   </div><!-- Content -->
+   <div class="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto"><!-- Portrait -->
+    <div class="mb-8 relative inline-block">
+     <div class="w-40 h-40 sm:w-52 sm:h-52 md:w-64 md:h-64 rounded-full bg-gradient-to-br from-gold-400 to-gold-600 p-1.5 mx-auto animate-pulse">
+      <div class="w-full h-full rounded-full bg-navy-800 flex items-center justify-center overflow-hidden"><!-- SVG Portrait Silhouette -->
+       <svg viewbox="0 0 200 200" class="w-full h-full text-gold-400/30"><defs>
+         <lineargradient id="portraitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:0.4" />
+          <stop offset="100%" style="stop-color:#d4a012;stop-opacity:0.2" />
+         </lineargradient>
+        </defs> <circle cx="100" cy="70" r="45" fill="url(#portraitGrad)" /> <ellipse cx="100" cy="160" rx="55" ry="45" fill="url(#portraitGrad)" /> <!-- Hair detail --> <path d="M55 65 Q70 30 100 25 Q130 30 145 65 Q140 45 100 40 Q60 45 55 65" fill="url(#portraitGrad)" opacity="0.6" />
+       </svg>
+      </div>
+     </div><!-- Decorative ring -->
+     <div class="absolute inset-0 w-40 h-40 sm:w-52 sm:h-52 md:w-64 md:h-64 rounded-full border-2 border-gold-400/20 animate-ping" style="animation-duration: 3s;"></div>
+    </div><!-- Title -->
+    <h1 id="heroTitle" class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 leading-tight">Dr. A.P.J. Abdul Kalam</h1><!-- Subtitle -->
+    <p id="heroSubtitle" class="text-gold-400 text-xl sm:text-2xl md:text-3xl font-serif mb-6">The Missile Man of India</p><!-- Tagline -->
+    <p class="text-navy-200 text-lg sm:text-xl max-w-2xl mx-auto mb-10 font-light">"Dream is not that which you see while sleeping, it is something that does not let you sleep."</p><!-- CTA Buttons -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4"><a href="#about" class="bg-gold-500 hover:bg-gold-600 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all btn-shine flex items-center space-x-2"> <span>Discover His Legacy</span>
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      </svg></a> <a href="#quotes" class="glass text-white px-8 py-4 rounded-full font-semibold text-lg transition-all hover:bg-white/20"> Read His Words </a>
+    </div><!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+     <div class="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center pt-2">
+      <div class="w-1.5 h-3 bg-gold-400 rounded-full animate-bounce"></div>
+     </div>
+    </div>
+   </div>
+  </section><!-- About Section -->
+  <section id="about" class="py-20 lg:py-32 bg-gradient-to-b from-white to-navy-50">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><!-- Section Header -->
+    <div class="text-center mb-16 reveal"><span class="text-gold-600 font-semibold text-sm uppercase tracking-wider">The Visionary Leader</span>
+     <h2 id="aboutTitle" class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-navy-900 mt-3 mb-4">About Dr. Kalam</h2>
+     <div class="section-divider"></div>
+    </div><!-- Bio Card -->
+    <div class="grid lg:grid-cols-2 gap-12 items-center mb-20">
+     <div class="reveal-left">
+      <div class="relative">
+       <div class="absolute -inset-4 bg-gradient-to-r from-gold-400 to-navy-600 rounded-3xl opacity-20 blur-xl"></div>
+       <div class="relative glass-light rounded-3xl p-8 shadow-xl">
+        <div class="flex items-center mb-6">
+         <div class="w-16 h-16 bg-gradient-to-br from-navy-600 to-navy-800 rounded-2xl flex items-center justify-center mr-4">
+          <svg class="w-8 h-8 text-gold-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+         </div>
+         <div>
+          <h3 class="font-serif text-2xl font-bold text-navy-900">Biography</h3>
+          <p class="text-navy-500">1931 - 2015</p>
+         </div>
+        </div>
+        <p class="text-navy-700 leading-relaxed mb-4">Avul Pakir Jainulabdeen Abdul Kalam was born on October 15, 1931, in Rameswaram, Tamil Nadu. Rising from humble beginnings, he became one of India's most celebrated scientists and the 11th President of India (2002-2007).</p>
+        <p class="text-navy-700 leading-relaxed">Known as the "People's President," Dr. Kalam dedicated his life to science, education, and inspiring the youth of India. His contributions to India's missile and nuclear programs earned him the title "Missile Man of India."</p>
+       </div>
+      </div>
+     </div>
+     <div class="reveal-right">
+      <div class="grid grid-cols-2 gap-4"><!-- Stat Card 1 -->
+       <div class="glass-light rounded-2xl p-6 card-hover">
+        <div class="w-12 h-12 bg-gradient-to-br from-gold-400 to-gold-600 rounded-xl flex items-center justify-center mb-4">
+         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+         </svg>
+        </div>
+        <h4 class="font-serif text-lg font-bold text-navy-900 mb-1">40+ Years</h4>
+        <p class="text-navy-500 text-sm">In Science &amp; Research</p>
+       </div><!-- Stat Card 2 -->
+       <div class="glass-light rounded-2xl p-6 card-hover">
+        <div class="w-12 h-12 bg-gradient-to-br from-navy-600 to-navy-800 rounded-xl flex items-center justify-center mb-4">
+         <svg class="w-6 h-6 text-gold-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+         </svg>
+        </div>
+        <h4 class="font-serif text-lg font-bold text-navy-900 mb-1">Bharat Ratna</h4>
+        <p class="text-navy-500 text-sm">India's Highest Honor</p>
+       </div><!-- Stat Card 3 -->
+       <div class="glass-light rounded-2xl p-6 card-hover">
+        <div class="w-12 h-12 bg-gradient-to-br from-gold-400 to-gold-600 rounded-xl flex items-center justify-center mb-4">
+         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+         </svg>
+        </div>
+        <h4 class="font-serif text-lg font-bold text-navy-900 mb-1">5 Missiles</h4>
+        <p class="text-navy-500 text-sm">Developed Under IGMDP</p>
+       </div><!-- Stat Card 4 -->
+       <div class="glass-light rounded-2xl p-6 card-hover">
+        <div class="w-12 h-12 bg-gradient-to-br from-navy-600 to-navy-800 rounded-xl flex items-center justify-center mb-4">
+         <svg class="w-6 h-6 text-gold-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+         </svg>
+        </div>
+        <h4 class="font-serif text-lg font-bold text-navy-900 mb-1">25+ Books</h4>
+        <p class="text-navy-500 text-sm">Authored &amp; Published</p>
+       </div>
+      </div>
+     </div>
+    </div><!-- Achievements -->
+    <div class="reveal">
+     <h3 class="font-serif text-2xl sm:text-3xl font-bold text-navy-900 text-center mb-10">Key Achievements</h3>
+     <div class="grid md:grid-cols-3 gap-6"><!-- Achievement 1 -->
+      <div class="bg-gradient-to-br from-navy-800 to-navy-900 rounded-3xl p-8 text-white card-hover">
+       <div class="w-14 h-14 bg-gold-500/20 rounded-2xl flex items-center justify-center mb-6">
+        <svg class="w-7 h-7 text-gold-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+       </div>
+       <h4 class="font-serif text-xl font-bold mb-3">SLV-III Project</h4>
+       <p class="text-navy-200 leading-relaxed">Led India's first indigenous Satellite Launch Vehicle project, making India a space-faring nation in 1980.</p>
+      </div><!-- Achievement 2 -->
+      <div class="bg-gradient-to-br from-gold-500 to-gold-600 rounded-3xl p-8 text-white card-hover">
+       <div class="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center mb-6">
+        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+        </svg>
+       </div>
+       <h4 class="font-serif text-xl font-bold mb-3">Pokhran-II Tests</h4>
+       <p class="text-white/90 leading-relaxed">Played a pivotal role in India's nuclear tests at Pokhran in 1998, establishing India as a nuclear power.</p>
+      </div><!-- Achievement 3 -->
+      <div class="bg-gradient-to-br from-navy-800 to-navy-900 rounded-3xl p-8 text-white card-hover">
+       <div class="w-14 h-14 bg-gold-500/20 rounded-2xl flex items-center justify-center mb-6">
+        <svg class="w-7 h-7 text-gold-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+       </div>
+       <h4 class="font-serif text-xl font-bold mb-3">11th President</h4>
+       <p class="text-navy-200 leading-relaxed">Served as the 11th President of India (2002-2007), known as the "People's President" for his accessibility.</p>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section><!-- Timeline Section -->
+  <section id="timeline" class="py-20 lg:py-32 bg-navy-50">
+   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"><!-- Section Header -->
+    <div class="text-center mb-16 reveal"><span class="text-gold-600 font-semibold text-sm uppercase tracking-wider">Life Journey</span>
+     <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-navy-900 mt-3 mb-4">Timeline</h2>
+     <div class="section-divider"></div>
+    </div><!-- Timeline -->
+    <div class="relative">
+     <div class="timeline-line hidden md:block"></div><!-- Timeline Items -->
+     <div class="space-y-12"><!-- 1931 -->
+      <div class="relative flex flex-col md:flex-row items-center reveal">
+       <div class="md:w-1/2 md:pr-12 md:text-right mb-4 md:mb-0">
+        <div class="glass-light rounded-2xl p-6 inline-block card-hover"><span class="text-gold-600 font-bold text-lg">October 15, 1931</span>
+         <h3 class="font-serif text-xl font-bold text-navy-900 mt-2">Birth</h3>
+         <p class="text-navy-600 mt-2">Born in Rameswaram, Tamil Nadu, to a Tamil Muslim family. His father was a boat owner and imam.</p>
+        </div>
+       </div>
+       <div class="absolute left-1/2 transform -translate-x-1/2 hidden md:flex items-center justify-center">
+        <div class="w-5 h-5 bg-gold-500 rounded-full border-4 border-white shadow-lg"></div>
+       </div>
+       <div class="md:w-1/2 md:pl-12"></div>
+      </div><!-- 1958 -->
+      <div class="relative flex flex-col md:flex-row items-center reveal">
+       <div class="md:w-1/2 md:pr-12"></div>
+       <div class="absolute left-1/2 transform -translate-x-1/2 hidden md:flex items-center justify-center">
+        <div class="w-5 h-5 bg-gold-500 rounded-full border-4 border-white shadow-lg"></div>
+       </div>
+       <div class="md:w-1/2 md:pl-12 mb-4 md:mb-0">
+        <div class="glass-light rounded-2xl p-6 inline-block card-hover"><span class="text-gold-600 font-bold text-lg">1958</span>
+         <h3 class="font-serif text-xl font-bold text-navy-900 mt-2">Joins DRDO</h3>
+         <p class="text-navy-600 mt-2">Started his career as a scientist at DRDO after graduating in Aerospace Engineering from MIT, Chennai.</p>
+        </div>
+       </div>
+      </div><!-- 1969 -->
+      <div class="relative flex flex-col md:flex-row items-center reveal">
+       <div class="md:w-1/2 md:pr-12 md:text-right mb-4 md:mb-0">
+        <div class="glass-light rounded-2xl p-6 inline-block card-hover"><span class="text-gold-600 font-bold text-lg">1969</span>
+         <h3 class="font-serif text-xl font-bold text-navy-900 mt-2">Transfers to ISRO</h3>
+         <p class="text-navy-600 mt-2">Moved to ISRO where he served as the project director of India's first SLV (Satellite Launch Vehicle).</p>
+        </div>
+       </div>
+       <div class="absolute left-1/2 transform -translate-x-1/2 hidden md:flex items-center justify-center">
+        <div class="w-5 h-5 bg-gold-500 rounded-full border-4 border-white shadow-lg"></div>
+       </div>
+       <div class="md:w-1/2 md:pl-12"></div>
+      </div><!-- 1980 -->
+      <div class="relative flex flex-col md:flex-row items-center reveal">
+       <div class="md:w-1/2 md:pr-12"></div>
+       <div class="absolute left-1/2 transform -translate-x-1/2 hidden md:flex items-center justify-center">
+        <div class="w-5 h-5 bg-gold-500 rounded-full border-4 border-white shadow-lg"></div>
+       </div>
+       <div class="md:w-1/2 md:pl-12 mb-4 md:mb-0">
+        <div class="glass-light rounded-2xl p-6 inline-block card-hover"><span class="text-gold-600 font-bold text-lg">July 18, 1980</span>
+         <h3 class="font-serif text-xl font-bold text-navy-900 mt-2">SLV-III Success</h3>
+         <p class="text-navy-600 mt-2">Successfully deployed the Rohini satellite into orbit, making India the fourth nation with launch capability.</p>
+        </div>
+       </div>
+      </div><!-- 1997 -->
+      <div class="relative flex flex-col md:flex-row items-center reveal">
+       <div class="md:w-1/2 md:pr-12 md:text-right mb-4 md:mb-0">
+        <div class="glass-light rounded-2xl p-6 inline-block card-hover"><span class="text-gold-600 font-bold text-lg">1997</span>
+         <h3 class="font-serif text-xl font-bold text-navy-900 mt-2">Bharat Ratna</h3>
+         <p class="text-navy-600 mt-2">Awarded India's highest civilian honor for his immense contributions to science and technology.</p>
+        </div>
+       </div>
+       <div class="absolute left-1/2 transform -translate-x-1/2 hidden md:flex items-center justify-center">
+        <div class="w-5 h-5 bg-gold-500 rounded-full border-4 border-white shadow-lg"></div>
+       </div>
+       <div class="md:w-1/2 md:pl-12"></div>
+      </div><!-- 2002 -->
+      <div class="relative flex flex-col md:flex-row items-center reveal">
+       <div class="md:w-1/2 md:pr-12"></div>
+       <div class="absolute left-1/2 transform -translate-x-1/2 hidden md:flex items-center justify-center">
+        <div class="w-5 h-5 bg-gold-500 rounded-full border-4 border-white shadow-lg"></div>
+       </div>
+       <div class="md:w-1/2 md:pl-12 mb-4 md:mb-0">
+        <div class="glass-light rounded-2xl p-6 inline-block card-hover"><span class="text-gold-600 font-bold text-lg">2002-2007</span>
+         <h3 class="font-serif text-xl font-bold text-navy-900 mt-2">11th President of India</h3>
+         <p class="text-navy-600 mt-2">Elected as President with overwhelming majority. Known for his vision of transforming India into a developed nation by 2020.</p>
+        </div>
+       </div>
+      </div><!-- 2015 -->
+      <div class="relative flex flex-col md:flex-row items-center reveal">
+       <div class="md:w-1/2 md:pr-12 md:text-right mb-4 md:mb-0">
+        <div class="glass-light rounded-2xl p-6 inline-block card-hover"><span class="text-gold-600 font-bold text-lg">July 27, 2015</span>
+         <h3 class="font-serif text-xl font-bold text-navy-900 mt-2">A Star Returns Home</h3>
+         <p class="text-navy-600 mt-2">Passed away while doing what he loved most — delivering a lecture to students at IIM Shillong. He was 83.</p>
+        </div>
+       </div>
+       <div class="absolute left-1/2 transform -translate-x-1/2 hidden md:flex items-center justify-center">
+        <div class="w-5 h-5 bg-gold-500 rounded-full border-4 border-white shadow-lg"></div>
+       </div>
+       <div class="md:w-1/2 md:pl-12"></div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section><!-- Quotes Section -->
+  <section id="quotes" class="py-20 lg:py-32 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 relative overflow-hidden"><!-- Background Pattern -->
+   <div class="absolute inset-0 opacity-10">
+    <svg width="100%" height="100%"><defs>
+      <pattern id="quote-pattern" x="0" y="0" width="60" height="60" patternunits="userSpaceOnUse">
+       <circle cx="30" cy="30" r="1.5" fill="#d4a012" />
+      </pattern>
+     </defs> <rect width="100%" height="100%" fill="url(#quote-pattern)" />
+    </svg>
+   </div>
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10"><!-- Section Header -->
+    <div class="text-center mb-16 reveal"><span class="text-gold-400 font-semibold text-sm uppercase tracking-wider">Inspiration</span>
+     <h2 id="quotesTitle" class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3 mb-4">Words of Wisdom</h2>
+     <div class="section-divider"></div>
+    </div><!-- Quotes Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"><!-- Quote 1 -->
+     <div class="quote-card glass rounded-3xl p-8 reveal" style="transition-delay: 0.1s;">
+      <div class="text-gold-400 mb-4">
+       <svg class="w-10 h-10" fill="currentColor" viewbox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+       </svg>
+      </div>
+      <p class="text-white text-lg leading-relaxed mb-6 font-light">"You have to dream before your dreams can come true."</p>
+      <div class="flex items-center">
+       <div class="w-10 h-10 bg-gold-500/20 rounded-full flex items-center justify-center mr-3"><span class="text-gold-400 font-serif font-bold">K</span>
+       </div><span class="text-navy-300 text-sm">On Dreams</span>
+      </div>
+     </div><!-- Quote 2 -->
+     <div class="quote-card glass rounded-3xl p-8 reveal" style="transition-delay: 0.2s;">
+      <div class="text-gold-400 mb-4">
+       <svg class="w-10 h-10" fill="currentColor" viewbox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+       </svg>
+      </div>
+      <p class="text-white text-lg leading-relaxed mb-6 font-light">"Excellence is a continuous process and not an accident."</p>
+      <div class="flex items-center">
+       <div class="w-10 h-10 bg-gold-500/20 rounded-full flex items-center justify-center mr-3"><span class="text-gold-400 font-serif font-bold">K</span>
+       </div><span class="text-navy-300 text-sm">On Excellence</span>
+      </div>
+     </div><!-- Quote 3 -->
+     <div class="quote-card glass rounded-3xl p-8 reveal" style="transition-delay: 0.3s;">
+      <div class="text-gold-400 mb-4">
+       <svg class="w-10 h-10" fill="currentColor" viewbox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+       </svg>
+      </div>
+      <p class="text-white text-lg leading-relaxed mb-6 font-light">"Failure will never overtake me if my determination to succeed is strong enough."</p>
+      <div class="flex items-center">
+       <div class="w-10 h-10 bg-gold-500/20 rounded-full flex items-center justify-center mr-3"><span class="text-gold-400 font-serif font-bold">K</span>
+       </div><span class="text-navy-300 text-sm">On Determination</span>
+      </div>
+     </div><!-- Quote 4 -->
+     <div class="quote-card glass rounded-3xl p-8 reveal" style="transition-delay: 0.4s;">
+      <div class="text-gold-400 mb-4">
+       <svg class="w-10 h-10" fill="currentColor" viewbox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+       </svg>
+      </div>
+      <p class="text-white text-lg leading-relaxed mb-6 font-light">"Man needs difficulties in life because they are necessary to enjoy success."</p>
+      <div class="flex items-center">
+       <div class="w-10 h-10 bg-gold-500/20 rounded-full flex items-center justify-center mr-3"><span class="text-gold-400 font-serif font-bold">K</span>
+       </div><span class="text-navy-300 text-sm">On Challenges</span>
+      </div>
+     </div><!-- Quote 5 -->
+     <div class="quote-card glass rounded-3xl p-8 reveal" style="transition-delay: 0.5s;">
+      <div class="text-gold-400 mb-4">
+       <svg class="w-10 h-10" fill="currentColor" viewbox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+       </svg>
+      </div>
+      <p class="text-white text-lg leading-relaxed mb-6 font-light">"Learning gives creativity, creativity leads to thinking, thinking provides knowledge, knowledge makes you great."</p>
+      <div class="flex items-center">
+       <div class="w-10 h-10 bg-gold-500/20 rounded-full flex items-center justify-center mr-3"><span class="text-gold-400 font-serif font-bold">K</span>
+       </div><span class="text-navy-300 text-sm">On Learning</span>
+      </div>
+     </div><!-- Quote 6 -->
+     <div class="quote-card glass rounded-3xl p-8 reveal" style="transition-delay: 0.6s;">
+      <div class="text-gold-400 mb-4">
+       <svg class="w-10 h-10" fill="currentColor" viewbox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+       </svg>
+      </div>
+      <p class="text-white text-lg leading-relaxed mb-6 font-light">"Don't take rest after your first victory because if you fail in second, more lips are waiting to say that your first victory was just luck."</p>
+      <div class="flex items-center">
+       <div class="w-10 h-10 bg-gold-500/20 rounded-full flex items-center justify-center mr-3"><span class="text-gold-400 font-serif font-bold">K</span>
+       </div><span class="text-navy-300 text-sm">On Perseverance</span>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section><!-- Gallery Section -->
+  <section id="gallery" class="py-20 lg:py-32 bg-white">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><!-- Section Header -->
+    <div class="text-center mb-16 reveal"><span class="text-gold-600 font-semibold text-sm uppercase tracking-wider">Memories</span>
+     <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-navy-900 mt-3 mb-4">Gallery</h2>
+     <div class="section-divider"></div>
+    </div><!-- Gallery Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"><!-- Gallery Item 1 -->
+     <div class="gallery-item relative rounded-2xl overflow-hidden aspect-square reveal cursor-pointer" style="transition-delay: 0.1s;">
+      <div class="w-full h-full bg-gradient-to-br from-navy-700 to-navy-900 flex items-center justify-center">
+       <div class="text-center p-4">
+        <svg class="w-16 h-16 mx-auto text-gold-400/50 mb-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg><span class="text-gold-400/70 text-sm font-medium">Missile Program</span>
+       </div>
+      </div>
+      <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-navy-900/90 via-navy-900/50 to-transparent flex items-end p-4">
+       <p class="text-white font-medium">Leading India's Missile Development</p>
+      </div>
+     </div><!-- Gallery Item 2 -->
+     <div class="gallery-item relative rounded-2xl overflow-hidden aspect-square reveal cursor-pointer" style="transition-delay: 0.15s;">
+      <div class="w-full h-full bg-gradient-to-br from-gold-500 to-gold-700 flex items-center justify-center">
+       <div class="text-center p-4">
+        <svg class="w-16 h-16 mx-auto text-white/70 mb-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+        </svg><span class="text-white/80 text-sm font-medium">At ISRO</span>
+       </div>
+      </div>
+      <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-navy-900/90 via-navy-900/50 to-transparent flex items-end p-4">
+       <p class="text-white font-medium">Working at ISRO Labs</p>
+      </div>
+     </div><!-- Gallery Item 3 -->
+     <div class="gallery-item relative rounded-2xl overflow-hidden aspect-square reveal cursor-pointer" style="transition-delay: 0.2s;">
+      <div class="w-full h-full bg-gradient-to-br from-navy-600 to-navy-800 flex items-center justify-center">
+       <div class="text-center p-4">
+        <svg class="w-16 h-16 mx-auto text-gold-400/50 mb-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        </svg><span class="text-gold-400/70 text-sm font-medium">Rashtrapati Bhavan</span>
+       </div>
+      </div>
+      <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-navy-900/90 via-navy-900/50 to-transparent flex items-end p-4">
+       <p class="text-white font-medium">As President of India</p>
+      </div>
+     </div><!-- Gallery Item 4 -->
+     <div class="gallery-item relative rounded-2xl overflow-hidden aspect-square reveal cursor-pointer" style="transition-delay: 0.25s;">
+      <div class="w-full h-full bg-gradient-to-br from-gold-600 to-gold-800 flex items-center justify-center">
+       <div class="text-center p-4">
+        <svg class="w-16 h-16 mx-auto text-white/70 mb-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg><span class="text-white/80 text-sm font-medium">With Students</span>
+       </div>
+      </div>
+      <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-navy-900/90 via-navy-900/50 to-transparent flex items-end p-4">
+       <p class="text-white font-medium">Teaching Young Minds</p>
+      </div>
+     </div><!-- Gallery Item 5 -->
+     <div class="gallery-item relative rounded-2xl overflow-hidden aspect-square reveal cursor-pointer" style="transition-delay: 0.3s;">
+      <div class="w-full h-full bg-gradient-to-br from-navy-800 to-navy-950 flex items-center justify-center">
+       <div class="text-center p-4">
+        <svg class="w-16 h-16 mx-auto text-gold-400/50 mb-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+        </svg><span class="text-gold-400/70 text-sm font-medium">Awards</span>
+       </div>
+      </div>
+      <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-navy-900/90 via-navy-900/50 to-transparent flex items-end p-4">
+       <p class="text-white font-medium">Receiving Bharat Ratna</p>
+      </div>
+     </div><!-- Gallery Item 6 -->
+     <div class="gallery-item relative rounded-2xl overflow-hidden aspect-square reveal cursor-pointer" style="transition-delay: 0.35s;">
+      <div class="w-full h-full bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center">
+       <div class="text-center p-4">
+        <svg class="w-16 h-16 mx-auto text-navy-900/50 mb-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg><span class="text-navy-900/70 text-sm font-medium">Speeches</span>
+       </div>
+      </div>
+      <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-navy-900/90 via-navy-900/50 to-transparent flex items-end p-4">
+       <p class="text-white font-medium">Addressing the Nation</p>
+      </div>
+     </div><!-- Gallery Item 7 -->
+     <div class="gallery-item relative rounded-2xl overflow-hidden aspect-square reveal cursor-pointer" style="transition-delay: 0.4s;">
+      <div class="w-full h-full bg-gradient-to-br from-navy-700 to-navy-900 flex items-center justify-center">
+       <div class="text-center p-4">
+        <svg class="w-16 h-16 mx-auto text-gold-400/50 mb-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
+        </svg><span class="text-gold-400/70 text-sm font-medium">SLV-III</span>
+       </div>
+      </div>
+      <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-navy-900/90 via-navy-900/50 to-transparent flex items-end p-4">
+       <p class="text-white font-medium">India's First Satellite Launch</p>
+      </div>
+     </div><!-- Gallery Item 8 -->
+     <div class="gallery-item relative rounded-2xl overflow-hidden aspect-square reveal cursor-pointer" style="transition-delay: 0.45s;">
+      <div class="w-full h-full bg-gradient-to-br from-gold-500 to-gold-700 flex items-center justify-center">
+       <div class="text-center p-4">
+        <svg class="w-16 h-16 mx-auto text-white/70 mb-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+        </svg><span class="text-white/80 text-sm font-medium">Legacy</span>
+       </div>
+      </div>
+      <div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-navy-900/90 via-navy-900/50 to-transparent flex items-end p-4">
+       <p class="text-white font-medium">An Eternal Inspiration</p>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section><!-- CTA Section -->
+  <section id="cta" class="py-20 lg:py-32 bg-gradient-to-br from-navy-800 via-navy-900 to-navy-950 relative overflow-hidden"><!-- Background Elements -->
+   <div class="absolute inset-0 opacity-20">
+    <div class="absolute top-10 left-10 w-64 h-64 bg-gold-500 rounded-full filter blur-3xl"></div>
+    <div class="absolute bottom-10 right-10 w-80 h-80 bg-navy-600 rounded-full filter blur-3xl"></div>
+   </div>
+   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+    <div class="reveal">
+     <div class="w-20 h-20 bg-gradient-to-br from-gold-400 to-gold-600 rounded-full flex items-center justify-center mx-auto mb-8 float">
+      <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+      </svg>
+     </div>
+     <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6">Explore His Complete Journey</h2>
+     <p class="text-navy-200 text-lg sm:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">Dive deeper into the life and legacy of Dr. A.P.J. Abdul Kalam. Discover his books, speeches, and the vision he had for India's future.</p>
+     <div class="flex flex-col sm:flex-row items-center justify-center gap-4"><a href="https://en.wikipedia.org/wiki/A._P._J._Abdul_Kalam" target="_blank" rel="noopener noreferrer" class="bg-gold-500 hover:bg-gold-600 text-white px-10 py-4 rounded-full font-semibold text-lg transition-all btn-shine flex items-center space-x-2"> <span>Read Full Biography</span>
+       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+       </svg></a> <a href="#hero" class="text-white hover:text-gold-400 px-8 py-4 font-semibold text-lg transition-all flex items-center space-x-2">
+       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+       </svg><span>Back to Top</span> </a>
+     </div>
+    </div>
+   </div>
+  </section><!-- Footer -->
+  <footer class="bg-navy-950 py-12">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row items-center justify-between"><!-- Logo -->
+     <div class="flex items-center space-x-3 mb-6 md:mb-0">
+      <div class="w-12 h-12 rounded-full bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center"><span class="text-white font-serif font-bold text-xl">K</span>
+      </div>
+      <div>
+       <h4 class="text-white font-serif font-bold text-lg">APJ Abdul Kalam</h4>
+       <p class="text-navy-400 text-sm">Tribute Website</p>
+      </div>
+     </div><!-- Links -->
+     <div class="flex items-center space-x-8 mb-6 md:mb-0"><a href="#about" class="text-navy-400 hover:text-gold-400 transition-colors">About</a> <a href="#timeline" class="text-navy-400 hover:text-gold-400 transition-colors">Timeline</a> <a href="#quotes" class="text-navy-400 hover:text-gold-400 transition-colors">Quotes</a> <a href="#gallery" class="text-navy-400 hover:text-gold-400 transition-colors">Gallery</a>
+     </div><!-- Copyright -->
+     <div class="text-navy-500 text-sm text-center md:text-right">
+      <p>A tribute to the People's President</p>
+      <p class="mt-1">© 2024 • Made with ❤️ for inspiration</p>
+     </div>
+    </div><!-- Quote -->
+    <div class="mt-10 pt-8 border-t border-navy-800 text-center">
+     <p class="text-navy-400 italic font-light">"If you want to shine like a sun, first burn like a sun."</p>
+     <p class="text-gold-500 text-sm mt-2">— Dr. A.P.J. Abdul Kalam</p>
+    </div>
+   </div>
+  </footer>
+  <script>
+    // Default configuration
+    const defaultConfig = {
+      hero_title: 'Dr. A.P.J. Abdul Kalam',
+      hero_subtitle: 'The Missile Man of India',
+      about_title: 'About Dr. Kalam',
+      quotes_title: 'Words of Wisdom',
+      background_color: '#102a43',
+      surface_color: '#ffffff',
+      text_color: '#102a43',
+      primary_action_color: '#d4a012',
+      secondary_action_color: '#243b53',
+      font_family: 'Playfair Display',
+      font_size: 16
+    };
+
+    // Initialize Elements SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (config) => {
+          // Update hero section
+          const heroTitle = document.getElementById('heroTitle');
+          const heroSubtitle = document.getElementById('heroSubtitle');
+          const aboutTitle = document.getElementById('aboutTitle');
+          const quotesTitle = document.getElementById('quotesTitle');
+
+          if (heroTitle) heroTitle.textContent = config.hero_title || defaultConfig.hero_title;
+          if (heroSubtitle) heroSubtitle.textContent = config.hero_subtitle || defaultConfig.hero_subtitle;
+          if (aboutTitle) aboutTitle.textContent = config.about_title || defaultConfig.about_title;
+          if (quotesTitle) quotesTitle.textContent = config.quotes_title || defaultConfig.quotes_title;
+
+          // Apply font family
+          const fontFamily = config.font_family || defaultConfig.font_family;
+          document.querySelectorAll('.font-serif').forEach(el => {
+            el.style.fontFamily = `${fontFamily}, Georgia, serif`;
+          });
+
+          // Apply font size scaling
+          const baseSize = config.font_size || defaultConfig.font_size;
+          document.documentElement.style.fontSize = `${baseSize}px`;
+
+          // Apply colors
+          const bgColor = config.background_color || defaultConfig.background_color;
+          const primaryColor = config.primary_action_color || defaultConfig.primary_action_color;
+          const secondaryColor = config.secondary_action_color || defaultConfig.secondary_action_color;
+          const textColor = config.text_color || defaultConfig.text_color;
+          const surfaceColor = config.surface_color || defaultConfig.surface_color;
+
+          // Update CSS custom properties for dynamic theming
+          document.documentElement.style.setProperty('--bg-color', bgColor);
+          document.documentElement.style.setProperty('--primary-color', primaryColor);
+          document.documentElement.style.setProperty('--secondary-color', secondaryColor);
+          document.documentElement.style.setProperty('--text-color', textColor);
+          document.documentElement.style.setProperty('--surface-color', surfaceColor);
+        },
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () => config.background_color || defaultConfig.background_color,
+              set: (value) => window.elementSdk.setConfig({ background_color: value })
+            },
+            {
+              get: () => config.surface_color || defaultConfig.surface_color,
+              set: (value) => window.elementSdk.setConfig({ surface_color: value })
+            },
+            {
+              get: () => config.text_color || defaultConfig.text_color,
+              set: (value) => window.elementSdk.setConfig({ text_color: value })
+            },
+            {
+              get: () => config.primary_action_color || defaultConfig.primary_action_color,
+              set: (value) => window.elementSdk.setConfig({ primary_action_color: value })
+            },
+            {
+              get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+              set: (value) => window.elementSdk.setConfig({ secondary_action_color: value })
+            }
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => config.font_family || defaultConfig.font_family,
+            set: (value) => window.elementSdk.setConfig({ font_family: value })
+          },
+          fontSizeable: {
+            get: () => config.font_size || defaultConfig.font_size,
+            set: (value) => window.elementSdk.setConfig({ font_size: value })
+          }
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ['hero_title', config.hero_title || defaultConfig.hero_title],
+          ['hero_subtitle', config.hero_subtitle || defaultConfig.hero_subtitle],
+          ['about_title', config.about_title || defaultConfig.about_title],
+          ['quotes_title', config.quotes_title || defaultConfig.quotes_title]
+        ])
+      });
+    }
+
+    // Loading screen
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('hidden');
+      }, 1000);
+    });
+
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('nav-scrolled');
+      } else {
+        navbar.classList.remove('nav-scrolled');
+      }
+    });
+
+    // Mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const closeMenu = document.getElementById('closeMenu');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.add('open');
+    });
+
+    closeMenu.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+    });
+
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    // Scroll reveal animation
+    function reveal() {
+      const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+      
+      reveals.forEach(element => {
+        const windowHeight = window.innerHeight;
+        const elementTop = element.getBoundingClientRect().top;
+        const revealPoint = 150;
+        
+        if (elementTop < windowHeight - revealPoint) {
+          element.classList.add('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', reveal);
+    window.addEventListener('load', reveal);
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d04dce067a1a81e',t:'MTc3MTQ5NDY1Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
